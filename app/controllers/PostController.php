@@ -1,12 +1,18 @@
-<?php
-
 namespace app\controllers;
 use app\core\Controller;
+use app\models\Post;
+
 class PostController extends Controller
 {
-//todo make a method to return some posts, post objects should come from the post model class
-//also need to make a twig template to show the posts
-//an example is in app/controllers/UsersController
+    public function getPosts() {
+        
+        $posts = Post::getAll();
+        return $posts;
+    }
 
-
+    public function showPosts() {
+        $posts = $this->getPosts();
+        $template = $this->twig->load('posts.twig');
+        echo $template->render(['posts' => $posts]);
+    }
 }
